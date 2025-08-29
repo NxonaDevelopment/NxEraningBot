@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nx Eran - Earn Money Watching Ads</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6a40bf;
+            --secondary: #8c6bce;
+            --accent: #ffcc00;
+            --light: #f8f9fa;
+            --dark: #1a1a2e;
+            --success: #28a745;
+            --danger: #dc3545;
+            --gray: #6c757d;
+            --bg-gradient: linear-gradient(135deg, #6a40bf 0%, #8c6bce 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fb;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            background: var(--bg-gradient);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 12px;
+            border-radius: 12px;
+            margin-top: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .user-details {
+            display: flex;
+            align-items: center;
+        }
+        
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+        
+        .user-text h3 {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .verify-badge {
+            color: var(--accent);
+            font-size: 14px;
+        }
+        
+        .balance-card {
+            background: white;
+            color: var(--dark);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .balance-title {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .balance-amount {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 5px 0;
+            color: var(--primary);
+        }
+        
+        .balance-subtext {
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .nav-tabs {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .nav-item {
+            text-align: center;
+            padding: 10px 0;
+            width: 20%;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .nav-item.active {
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .nav-item span {
+            font-size: 12px;
+        }
+        
+        .content {
+            padding: 20px;
+            padding-bottom: 80px;
+        }
+        
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .progress-container {
+            background: #f0f0f0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--bg-gradient);
+            border-radius: 4px;
+            width: 65%;
+        }
+        
+        .task-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--bg-gradient);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .transaction-details {
+            flex: 1;
+        }
+        
+        .transaction-title {
+            font-weight: 600;
+        }
+        
+        .transaction-date {
+            font-size: 12px;
+            color: var(--gray);
+        }
+        
+        .transaction-amount {
+            font-weight: 600;
+            color: var(--success);
+        }
+        
+        .withdraw-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        
+        .withdraw-option i {
+            font-size: 24px;
+            margin-right: 15px;
+            color: var(--primary);
+        }
+        
+        .referral-code {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .code {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+        
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .rank {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .rank-1 {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .rank-2 {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .rank-3 {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .leaderboard-user {
+            flex: 1;
+        }
+        
+        .leaderboard-amount {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 480px;
+            background: white;
+            padding: 15px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .ad-container {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .ad-placeholder {
+            width: 100%;
+            height: 250px;
+            background: #e9ecef;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            font-weight: 600;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .withdraw-info {
+            font-size: 12px;
+            color: var(--gray);
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Nx Eran</div>
+            <div class="user-info">
+                <div class="user-details">
+                    <div class="avatar">JD</div>
+                    <div class="user-text">
+                        <h3>John Doe <span class="verify-badge"><i class="fas fa-badge-check"></i></span></h3>
+                        <p>@johndoe · ID: 123456</p>
+                    </div>
+                </div>
+            </div>
+            <div class="balance-card">
+                <div class="balance-title">Total Balance</div>
+                <div class="balance-amount">৳ 125.50</div>
+                <div class="balance-subtext">≈ $1.20</div>
+            </div>
+        </div>
+        
+        <div class="nav-tabs">
+            <div class="nav-item active" data-target="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" data-target="tasks">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </div>
+            <div class="nav-item" data-target="wallet">
+                <i class="fas fa-wallet"></i>
+                <span>Wallet</span>
+            </div>
+            <div class="nav-item" data-target="refer">
+                <i class="fas fa-users"></i>
+                <span>Refer</span>
+            </div>
+            <div class="nav-item" data-target="leaderboard">
+                <i class="fas fa-trophy"></i>
+                <span>Leaderboard</span>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- Home Section -->
+            <div class="section active" id="home">
+                <div class="card">
+                    <div class="card-title">
+                        <span>Your Progress</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <div class="task-stats">
+                        <span>Completed: 12 tasks</span>
+                        <span>Remaining: 8 tasks</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">
+                        <span>Quick Actions</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="showAd()">
+                        <i class="fas fa-play-circle"></i> Watch Ads & Earn
+                    </button>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">
+                        <span>Recent Transactions</span>
+                        <span style="font-size: 12px;"><a href="#" onclick="showSection('wallet')">View All</a></span>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Ad Watch Reward</div>
+                            <div class="transaction-date">Today, 10:30 AM</div>
+                        </div>
+                        <div class="transaction-amount">+৳ 5.00</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Referral Earnings</div>
+                            <div class="transaction-date">Yesterday, 3:45 PM</div>
+                        </div>
+                        <div class="transaction-amount">+৳ 12.50</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tasks Section -->
+            <div class="section" id="tasks">
+                <div class="card">
+                    <div class="card-title">
+                        <span>Available Tasks</span>
+                    </div>
+                    <p>Watch ads and complete tasks to earn money. You must watch the entire ad to receive credit.</p>
+                    
+                    <div class="ad-container">
+                        <h3>Watch this ad and earn ৳5.00</h3>
+                        <div class="ad-placeholder">
+                            Advertisement will appear here
+                        </div>
+                        <button class="btn btn-primary" style="margin-top: 15px;" onclick="showAd()">
+                            Start Watching
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">
+                        <span>Task History</span>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Ad Watch: Tech Gadgets</div>
+                            <div class="transaction-date">Completed · Today, 10:30 AM</div>
+                        </div>
+                        <div class="transaction-amount">+৳ 5.00</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Ad Watch: Food Delivery</div>
+                            <div class="transaction-date">Completed · Yesterday, 5:20 PM</div>
+                        </div>
+                        <div class="transaction-amount">+৳ 5.00</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Ad Watch: Online Shopping</div>
+                            <div class="transaction-date">Completed · Yesterday, 1:15 PM</div>
+                        </div>
+                        <div class="transaction-amount">+৳ 5.00</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wallet Section -->
+            <div class="section" id="wallet">
+                <div class="card">
+                    <div class="card-title">
+                        <span>Withdraw Earnings</span>
+                    </div>
+                    
+                    <div class="withdraw-option" onclick="showWithdrawModal('bkash')">
+                        <i class="fas fa-mobile-alt"></i>
+                        <div>
+                            <h3>Bkash</h3>
+                            <p>Min: ৳20</p>
+                        </div>
+                    </div>
+                    
+                    <div class="withdraw-option" onclick="showWithdrawModal('rocket')">
+                        <i class="fas fa-university"></i>
+                        <div>
+                            <h3>Rocket</h3>
+                            <p>Min: ৳20</p>
+                        </div>
+                    </div>
+                    
+                    <div class="withdraw-option" onclick="showWithdrawModal('binance')">
+                        <i class="fab fa-bitcoin"></i>
+                        <div>
+                            <h3>Binance</h3>
+                            <p>Min: $0.10</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">
+                        <span>Transaction History</span>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Withdrawal to Bkash</div>
+                            <div class="transaction-date">Aug 25, 2023 · Processing</div>
+                        </div>
+                        <div class="transaction-amount" style="color: var(--danger);">-৳ 50.00</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Ad Watch Reward</div>
+                            <div class="transaction-date">Aug 24, 2023 · Completed</div>
+                        </div>
+                        <div class="transaction-amount">+৳ 5.00</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Referral Earnings</div>
+                            <div class="transaction-date">Aug 23, 2023 · Completed</div>
+                        </div>
+                        <div class="transaction-amount">+৳ 15.00</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Refer Section -->
+            <div class="section" id="refer">
+                <div class="card">
+                    <div class="card-title">
+                        <span>Invite Friends & Earn</span>
+                    </div>
+                    <p>Invite your friends to join Nx Eran using your referral code. You'll earn <b>10%</b> of their earnings!</p>
+                    
+                    <div class="referral-code">
+                        <p>Your Referral Code</p>
+                        <div class="code">NXE-JOHN-5678</div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-copy"></i> Copy Code
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">
+                        <span>Referral Stats</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-around; text-align: center; padding: 15px 0;">
+                        <div>
+                            <h3>5</h3>
+                            <p style="color: var(--gray);">Referred</p>
+                        </div>
+                        <div>
+                            <h3>3</h3>
+                            <p style="color: var(--gray);">Active</p>
+                        </div>
+                        <div>
+                            <h3>৳ 42.50</h3>
+                            <p style="color: var(--gray);">Earned</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">
+                        <span>Your Referrals</span>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Mike Johnson</div>
+                            <div class="transaction-date">Joined: Aug 20, 2023</div>
+                        </div>
+                        <div class="transaction-amount">৳ 125.00</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">Sarah Williams</div>
+                            <div class="transaction-date">Joined: Aug 18, 2023</div>
+                        </div>
+                        <div class="transaction-amount">৳ 85.50</div>
+                    </div>
+                    <div class="transaction-item">
+                        <div class="transaction-details">
+                            <div class="transaction-title">David Brown</div>
+                            <div class="transaction-date">Joined: Aug 15, 2023</div>
+                        </div>
+                        <div class="transaction-amount">৳ 215.00</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Leaderboard Section -->
+            <div class="section" id="leaderboard">
+                <div class="card">
+                    <div class="card-title">
+                        <span>Top Earners This Week</span>
+                    </div>
+                    
+                    <div class="leaderboard-item">
+                        <div class="rank rank-1">1</div>
+                        <div class="leaderboard-user">
+                            <h3>Alex Chen</h3>
+                            <p>@alexchen</p>
+                        </div>
+                        <div class="leaderboard-amount">৳ 542.50</div>
+                    </div>
+                    
+                    <div class="leaderboard-item">
+                        <div class="rank rank-2">2</div>
+                        <div class="leaderboard-user">
+                            <h3>Maria Garcia</h3>
+                            <p>@maria</p>
+                        </div>
+                        <div class="leaderboard-amount">৳ 487.00</div>
+                    </div>
+                    
+                    <div class="leaderboard-item">
+                        <div class="rank rank-3">3</div>
+                        <div class="leaderboard-user">
+                            <h3>James Wilson</h3>
+                            <p>@jamesw</p>
+                        </div>
+                        <div class="leaderboard-amount">৳ 425.75</div>
+                    </div>
+                    
+                    <div class="leaderboard-item">
+                        <div class="rank">4</div>
+                        <div class="leaderboard-user">
+                            <h3>Sarah Johnson</h3>
+                            <p>@sarahj</p>
+                        </div>
+                        <div class="leaderboard-amount">৳ 398.50</div>
+                    </div>
+                    
+                    <div class="leaderboard-item">
+                        <div class="rank">5</div>
+                        <div class="leaderboard-user">
+                            <h3>Your Name</h3>
+                            <p>@johndoe</p>
+                        </div>
+                        <div class="leaderboard-amount">৳ 375.25</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">
+                        <span>Your Ranking</span>
+                    </div>
+                    <div style="text-align: center; padding: 20px;">
+                        <h2 style="font-size: 48px; color: var(--primary);">#5</h2>
+                        <p>You're among the top earners this week!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Nx Eran &copy; 2023 - Earn by watching ads</p>
+        </div>
+    </div>
+    
+    <!-- Withdraw Modal -->
+    <div class="modal" id="withdrawModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-title" id="modalTitle">Withdraw to Bkash</div>
+            
+            <div class="withdraw-info">
+                <p id="minAmount">Minimum withdrawal: ৳20</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" placeholder="Enter your full name">
+            </div>
+            
+            <div class="form-group">
+                <label id="numberLabel" for="number">Bkash Number</label>
+                <input type="text" id="number" placeholder="Enter your number">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email">
+            </div>
+            
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="number" id="amount" placeholder="Enter amount">
+            </div>
+            
+            <button class="btn btn-primary" onclick="submitWithdraw()">Submit Request</button>
+        </div>
+    </div>
+    
+    <script>
+        // Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                const target = this.getAttribute('data-target');
+                showSection(target);
+            });
+        });
+        
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.getElementById(sectionId).classList.add('active');
+        }
+        
+        // Modal Functions
+        function showWithdrawModal(type) {
+            const modal = document.getElementById('withdrawModal');
+            const title = document.getElementById('modalTitle');
+            const numberLabel = document.getElementById('numberLabel');
+            const minAmount = document.getElementById('minAmount');
+            
+            if (type === 'bkash') {
+                title.textContent = 'Withdraw to Bkash';
+                numberLabel.textContent = 'Bkash Number';
+                minAmount.textContent = 'Minimum withdrawal: ৳20';
+            } else if (type === 'rocket') {
+                title.textContent = 'Withdraw to Rocket';
+                numberLabel.textContent = 'Rocket Number';
+                minAmount.textContent = 'Minimum withdrawal: ৳20';
+            } else if (type === 'binance') {
+                title.textContent = 'Withdraw to Binance';
+                numberLabel.textContent = 'Binance UID';
+                minAmount.textContent = 'Minimum withdrawal: $0.10';
+            }
+            
+            modal.style.display = 'flex';
+        }
+        
+        function closeModal() {
+            document.getElementById('withdrawModal').style.display = 'none';
+        }
+        
+        function submitWithdraw() {
+            alert('Withdrawal request submitted successfully!');
+            closeModal();
+        }
+        
+        // Ad watching function
+        function showAd() {
+            // This would integrate with the actual ad code in a real implementation
+            const adContainer = document.querySelector('.ad-placeholder');
+            adContainer.innerHTML = 'Playing advertisement...';
+            adContainer.style.color = 'black';
+            
+            // Simulate ad completion after 5 seconds
+            setTimeout(() => {
+                adContainer.innerHTML = 'Advertisement completed!<br>৳5.00 has been added to your account.';
+                alert('Advertisement completed! ৳5.00 has been added to your account.');
+            }, 5000);
+        }
+        
+        // Close modal if clicked outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('withdrawModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+    </script>
+</body>
+</html>
